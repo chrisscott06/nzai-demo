@@ -1,0 +1,20 @@
+/* Stolzl — self-hosted. Source files in src/fonts/stolzl/.
+   Two weights used by the template: Book 400 (FONT_HERO) and
+   Medium 500 (FONT_HEADING). Other weights in the folder are
+   intentionally not registered. */
+
+@font-face {
+  font-family: 'Stolzl';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/stolzl/stolzl_book.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Stolzl';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('./fonts/stolzl/stolzl_medium.otf') format('opentype');
+}

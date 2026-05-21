@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 
 @theme {
   /* === Fonts === */
@@ -74,4 +75,17 @@
   --duration-cascade: 350ms;
   --duration-transition: 500ms;
   --duration-chapter: 700ms;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-theme-base);
+    color: var(--color-theme-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+  }
 }
