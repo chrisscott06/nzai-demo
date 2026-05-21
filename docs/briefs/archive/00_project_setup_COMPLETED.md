@@ -15,6 +15,75 @@
 Both lines edited in this file below. CLAUDE.md authored in Part 4 reflects the actuals.
 
 ---
+
+## Change of plan — Parts 4 + 5 collapsed (2026-05-21 evening)
+
+Chris's call mid-session: the original Part 4 (Bible-discipline scaffolding) + Part 5 (single placeholder page) shipped perfect scaffolding around a placeholder. Wrong return on time. Pivoting to a **mini-template** that demonstrates the foundation with three real pages.
+
+**Parts 1–3 kept as built and committed** (Vite scaffold, token system, fonts).
+
+**Original Part 4 (Bible scaffolding) reduced to one-liners.** CLAUDE.md and STATUS.md become brief notes (stack, current state, where to look). Full Process Rules / Module Scopes deferred to a later housekeeping brief.
+
+**Original Part 5 (placeholder hello-world) replaced by Part 4 (mini-template):**
+
+- `src/components/PageShell.jsx` — masthead (NZA mark + "NET ZERO ADVISORY" descriptor + section title/number right-aligned in accent), vertical "DEMO" client wordmark on left edge, footer (NZA Consultancy Ltd + doc ref + page number)
+- `src/components/SplitPanel.jsx` — fixed pane + scrollable pane, no-page-scroll principle enforced
+- `src/pages/Cover.jsx` — `/` — full-bleed `theme.base`, "NZA Report Template" title in `text-display` (Stolzl Medium), subtitle in `text-h3`, accent underline, "Demo Client" metadata bottom-left, NZA mark top-right. No masthead/footer.
+- `src/pages/Contents.jsx` — `/contents` — PageShell + 2-column listing of seven placeholder section names ("Executive Summary", "Methodology", "Emissions Inventory", "The Trajectory", "Interventions", "Financials", "Next Steps")
+- `src/pages/Sample.jsx` — `/sample` — PageShell + SplitPanel 40/60. Left: heading + accent underline + 3 lorem-style paragraphs. Right: dark card placeholder for chart (`bg-white/5`, `border-white/10`, centred caption "Chart placeholder")
+- React Router routing `/`, `/contents`, `/sample`
+- `motion.entry` per page (opacity 0→1, y 8→0, 250ms)
+- Simple navigation chip somewhere unobtrusive
+
+**Falsifiability** (replaces the original Part 5 falsifiability): open `localhost:5180/` and see a real NZA cover. Click to `/contents` — real contents page. Click to `/sample` — real body page with masthead/footer/wordmark/split layout. All token-based. No raw hex outside `src/tokens/`.
+
+**Skipped (for now, deferred to follow-on briefs if needed):**
+- 12 canonical components beyond PageShell + SplitPanel (Modal, Drawer, MethodologyAccordion, RiskIndicator, ScrollHint etc.)
+- Elaborate audit doc (design spec is the canonical reference)
+- Push-after-every-Part cadence — single push at the end of this Part instead
+
+**Brief close:** Brief 00 archives as "foundation + mini-template" once the three pages render.
+
+---
+
+## Cream-register redirect — late session (2026-05-21)
+
+Chris's second mid-session pivot. The navy/dark `PageShell` + `Cover/Contents/Sample` pages didn't match the EOC visual pattern he wanted. He authorised reading the EOC repo at `C:\Users\ChrisScott\Dev\nza-eoc-nzr` as a **read-only structural reference** (overrides Principle 6 of the original brief; EOC code is reference, not import source).
+
+**Discarded:** `src/pages/Cover.jsx`, `src/pages/Contents.jsx`, `src/pages/Sample.jsx`, `src/components/PageShell.jsx`, `src/components/NavChip.jsx`, `src/components/SplitPanel.jsx`. `framer-motion` and `react-router-dom` pulled back out of `package.json` (not installed).
+
+**Kept:** all of `src/tokens/`, `src/fonts/`, the `@theme` block, the `nza-entry` CSS keyframe, `@layer base` body defaults.
+
+**Added — five-token editorial-register type scale** (`src/tokens/fonts.js` + `@theme`):
+
+| Token | Size / line-height | Family | Used for |
+|---|---|---|---|
+| `text-chapter` | 40px / 1.15 | Stolzl Medium | Chapter titles |
+| `text-chapter-sub` | 18px / 1.6 | Inter | Chapter subtitles |
+| `text-page-heading` | 28px / 1.2 | Stolzl Medium | Page titles |
+| `text-subheading` | 18px / 1.3 | Stolzl Medium | Section subheadings (+ coral underline) |
+| `text-body` | 15px / 1.6 | Inter | Body paragraphs |
+
+These five are the only typography used **in the three page bodies**. The shared chrome (`TopNav`) uses `text-sm` (14px) for nav links and `text-xs` (12px) for the logo lockup placeholders — defined design-spec tokens, not arbitrary.
+
+**Added components:**
+- `src/components/TopNav.jsx` — two-bar primary + secondary nav. Modelled on EOC's `Navigation.jsx` + `SubNav.jsx` pair, re-skinned for cream + nzai-demo tokens. Primary active = coral. Secondary active = coral underline.
+- `src/components/BodyPageLayout.jsx` — cream-register page wrapper (`bg-nza-cream`, `text-theme-base`). Replaces the discarded `PageShell`.
+
+**Added pages:**
+- `src/pages/Home.jsx` — `/` equivalent. Two-column layout: narrative left, donut/exec-summary card right. Mirrors EOC's `Landing.jsx` two-column rhythm but in cream/dark.
+- `src/pages/Explainers.jsx` — chapter opener. Title + subtitle + intro paragraph + 5-card grid of sub-pages.
+- `src/pages/CarbonAccounting.jsx` — content page. Body-left + graphic-right split (40/60). Page heading + subheading with coral underline + four placeholder paragraphs of plausible emissions narrative.
+
+**Navigation:** `useState` in `App.jsx` (no `react-router-dom`). `TopNav` calls back through `onNavigate(primaryKey, secondaryKey?)`.
+
+**Falsifiability:**
+- ✓ Zero raw hex in `.jsx` outside `src/tokens/`
+- ✓ Zero arbitrary `text-[N]` sizes in `.jsx`
+- ✓ "JetBrains" appears only in `src/tokens/fonts.js` comment documenting the exclusion
+- ✓ Dev server compiles clean on `http://localhost:5180/`
+
+---
 **Target outcome:** `C:\Users\ChrisScott\Dev\nzai-demo` is a working React + Vite + Tailwind v4 project, set up fresh (no EOC code copied), with the NZA Studio token system in place per the [NZA Report Template v1 design specification](https://www.notion.so/367d645e05cc810c94b9de261048d84f), the Bible's discipline scaffolding established, fonts installed (Stolzl, Inter, DM Serif Display, IBM Plex Mono — explicitly NOT JetBrains Mono), and a confirmed-working dev server rendering a minimal "hello world" page that exercises the token system.
 
 After this brief lands: Chris has a clean, opinionated foundation ready for follow-on briefs (Brief 01 template structure, Brief 02 section types, Brief 03 demo content, Brief 04 hosting). Nothing in this brief copies code from EOC; the EOC repo is referenced visually only.

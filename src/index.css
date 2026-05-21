@@ -32,6 +32,20 @@
   --text-display: 64px;
   --text-display--line-height: 1.05;
 
+  /* === Editorial-register five-token type scale ===
+     The only sizes used in the cream/dark mini-template pages
+     (Home, Explainers, CarbonAccounting). Per 2026-05-21 direction. */
+  --text-chapter: 40px;
+  --text-chapter--line-height: 1.15;
+  --text-chapter-sub: 18px;
+  --text-chapter-sub--line-height: 1.6;
+  --text-page-heading: 28px;
+  --text-page-heading--line-height: 1.2;
+  --text-subheading: 18px;
+  --text-subheading--line-height: 1.3;
+  --text-body: 15px;
+  --text-body--line-height: 1.6;
+
   /* === Anchors (Tier 1) === */
   --color-nza-coral: #E8725C;
   --color-nza-cream: #EDE5D8;
@@ -88,4 +102,22 @@
     font-family: var(--font-heading);
     font-weight: 500;
   }
+}
+
+/* motion.entry — opacity 0→1, y 8→0, 250ms ease-standard.
+   Per design spec § Motion system. CSS keyframe used in place of
+   framer-motion to keep the demo dependency-light. */
+@keyframes nza-entry {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nza-entry {
+  animation: nza-entry 250ms cubic-bezier(0.4, 0, 0.2, 1) both;
 }
