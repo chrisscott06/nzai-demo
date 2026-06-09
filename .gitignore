@@ -24,6 +24,10 @@ build/
 *.db-wal
 *.db-shm
 
+# Local launcher (per Bible — each machine has its own; not committed)
+go.bat
+go.command
+
 # Editor directories and files
 .vscode/
 .idea/
